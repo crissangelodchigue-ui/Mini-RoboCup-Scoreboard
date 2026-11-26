@@ -299,7 +299,7 @@ function showTeamAttempts(teamId) {
     if (!team) {
         alert(
             "Attempt details are not available yet. " +
-            "Please update the facilitator script as instructed below."
+            "Please check the facilitator display connection."
         );
         return;
     }
@@ -743,6 +743,59 @@ setInterval(() => {
     }
 
 }, 50);
+
+
+/* =====================================================
+   AUDIENCE FULLSCREEN CONTROL
+===================================================== */
+
+const displayFullscreenToggle = document.getElementById(
+    "displayFullscreenToggle"
+);
+
+function updateDisplayFullscreenButton() {
+
+    if (!displayFullscreenToggle) return;
+
+    const isFullscreen = Boolean(document.fullscreenElement);
+
+    displayFullscreenToggle.textContent = isFullscreen
+        ? "⛶ EXIT FULL SCREEN"
+        : "⛶ FULL SCREEN";
+
+    displayFullscreenToggle.setAttribute(
+        "aria-label",
+        isFullscreen ? "Exit fullscreen mode" : "Enter fullscreen mode"
+    );
+
+}
+
+if (displayFullscreenToggle) {
+
+    displayFullscreenToggle.addEventListener("click", async () => {
+
+        try {
+
+            if (!document.fullscreenElement) {
+                await document.documentElement.requestFullscreen();
+            } else {
+                await document.exitFullscreen();
+            }
+
+        } catch (error) {
+
+            console.error("Fullscreen could not be activated:", error);
+
+        }
+
+    });
+
+    document.addEventListener(
+        "fullscreenchange",
+        updateDisplayFullscreenButton
+    );
+
+}
 
 
 /* =====================================================
