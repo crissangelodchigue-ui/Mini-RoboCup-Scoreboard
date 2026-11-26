@@ -1,0 +1,1027 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini RoboCup | Audience Display</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           AUDIENCE DISPLAY
+        ========================================= */
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #080e24;
+        }
+
+        /* Animated background */
+
+        .arena-background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    ellipse at 15% 20%,
+                    rgba(82, 120, 255, 0.24),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    ellipse at 85% 70%,
+                    rgba(167, 122, 255, 0.18),
+                    transparent 42%
+                ),
+                #080e24;
+        }
+
+        .arena-background::before {
+            content: "";
+            position: absolute;
+            inset: -50%;
+
+            background:
+                repeating-linear-gradient(
+                    115deg,
+                    transparent 0,
+                    transparent 90px,
+                    rgba(57, 231, 255, 0.045) 92px,
+                    transparent 95px
+                );
+
+            animation: arenaMove 30s linear infinite;
+        }
+
+        .arena-background::after {
+            content: "";
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            top: 10%;
+            left: 50%;
+
+            border: 1px solid rgba(57, 231, 255, 0.13);
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 80px rgba(82, 120, 255, 0.12),
+                inset 0 0 80px rgba(82, 120, 255, 0.08);
+
+            transform: translateX(-50%);
+            animation: arenaPulse 7s ease-in-out infinite;
+        }
+
+        .arena-glow {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.24;
+            animation: glowFloat 13s ease-in-out infinite alternate;
+        }
+
+        .arena-glow.one {
+            top: 5%;
+            left: -120px;
+            background: #315dff;
+        }
+
+        .arena-glow.two {
+            right: -100px;
+            bottom: 5%;
+            background: #7445ff;
+            animation-delay: -5s;
+        }
+
+        .arena-glow.three {
+            top: 45%;
+            left: 45%;
+            width: 230px;
+            height: 230px;
+            background: #00bcd4;
+            opacity: 0.12;
+            animation-delay: -8s;
+        }
+
+        @keyframes arenaMove {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+            to {
+                transform: translate3d(150px, 150px, 0);
+            }
+        }
+
+        @keyframes arenaPulse {
+            0%, 100% {
+                opacity: 0.35;
+                scale: 0.96;
+            }
+            50% {
+                opacity: 0.8;
+                scale: 1.06;
+            }
+        }
+
+        @keyframes glowFloat {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(80px, -60px);
+            }
+        }
+
+
+        /* Main layout */
+
+        .audience-page {
+            position: relative;
+            z-index: 1;
+
+            width: min(1550px, 94%);
+            margin: 0 auto;
+            padding: 28px 0 45px;
+        }
+
+
+        /* Header */
+
+        .audience-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            padding: 15px 22px;
+            border: 1px solid rgba(57, 231, 255, 0.28);
+            border-radius: 18px;
+
+            background: rgba(17, 30, 64, 0.84);
+            backdrop-filter: blur(15px);
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .audience-brand {
+            display: flex;
+            align-items: center;
+            gap: 17px;
+        }
+
+        .audience-brand img {
+            width: 86px;
+            height: 86px;
+            object-fit: contain;
+
+            padding: 3px;
+            border: 2px solid rgba(57, 231, 255, 0.7);
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px rgba(57, 231, 255, 0.5),
+                0 0 24px rgba(82, 120, 255, 0.3);
+        }
+
+        .audience-brand h1 {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(20px, 2.5vw, 30px);
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .audience-brand p {
+            margin: 5px 0 0;
+            color: #9db4e8;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .audience-live {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 10px 16px;
+            border: 1px solid rgba(64, 230, 165, 0.35);
+            border-radius: 50px;
+
+            background: rgba(64, 230, 165, 0.08);
+            color: #40e6a5;
+
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+        }
+
+        .live-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #40e6a5;
+            box-shadow: 0 0 12px #40e6a5;
+            animation: livePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.75);
+            }
+        }
+
+
+        /* Main competition title */
+
+        .audience-title {
+            margin: 35px 0 25px;
+            text-align: center;
+        }
+
+        .audience-title .eyebrow {
+            color: #39e7ff;
+            letter-spacing: 4px;
+        }
+
+        .audience-title h2 {
+            margin: 8px 0;
+            color: #ffffff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(42px, 6vw, 76px);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 0 25px rgba(82, 120, 255, 0.3);
+        }
+
+        .audience-title p {
+            color: #a9b9e8;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+
+        /* Live match */
+
+        .live-match {
+            position: relative;
+            overflow: hidden;
+
+            padding: 30px;
+            border: 1px solid rgba(57, 231, 255, 0.4);
+            border-radius: 22px;
+
+            background: rgba(17, 30, 64, 0.9);
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.24),
+                0 0 25px rgba(57, 231, 255, 0.08);
+        }
+
+        .live-match::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #39e7ff,
+                #a77aff,
+                transparent
+            );
+
+            animation: borderSweep 5s linear infinite;
+        }
+
+        @keyframes borderSweep {
+            to {
+                left: 100%;
+            }
+        }
+
+        .match-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .match-heading h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .match-status {
+            padding: 8px 13px;
+            border: 1px solid rgba(82, 120, 255, 0.4);
+            border-radius: 50px;
+            background: rgba(82, 120, 255, 0.12);
+            color: #a9c0ff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+
+        /* Team name */
+
+        .display-team-name {
+            margin: 10px 0 18px;
+            color: #ffffff;
+            font-size: clamp(34px, 5vw, 57px);
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: center;
+            overflow-wrap: anywhere;
+
+            text-shadow:
+                0 0 20px rgba(57, 231, 255, 0.17);
+        }
+
+        .display-players {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            max-width: 750px;
+            margin: 0 auto 22px;
+        }
+
+        .display-player {
+            padding: 15px;
+            border: 1px solid rgba(82, 120, 255, 0.25);
+            border-radius: 12px;
+            background: rgba(82, 120, 255, 0.08);
+            text-align: center;
+        }
+
+        .display-player span {
+            display: block;
+            margin-bottom: 7px;
+            color: #8da8e8;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+        }
+
+        .display-player strong {
+            color: #ffffff;
+            font-size: clamp(17px, 2vw, 24px);
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .display-operator {
+            margin: 0 auto 22px;
+            color: #a9b9e8;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .display-operator strong {
+            color: #39e7ff;
+        }
+
+
+        /* Timer */
+
+        .display-timer-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 23px;
+
+            border: 1px solid rgba(57, 231, 255, 0.3);
+            border-radius: 17px;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(57, 231, 255, 0.12),
+                    transparent 75%
+                ),
+                rgba(5, 13, 35, 0.7);
+
+            text-align: center;
+        }
+
+        .display-timer-label {
+            color: #a9b9e8;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .display-timer {
+            margin: 13px 0;
+            color: #39e7ff;
+            font-family: 'DM Mono', monospace;
+            font-size: clamp(58px, 9vw, 105px);
+            font-weight: 600;
+            letter-spacing: -3px;
+            text-shadow: 0 0 28px rgba(57, 231, 255, 0.3);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .display-run-status {
+            color: #a9b9e8;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+
+        /* Match information */
+
+        .match-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+            margin-top: 22px;
+        }
+
+        .match-stat {
+            padding: 16px;
+            border: 1px solid rgba(82, 120, 255, 0.25);
+            border-radius: 12px;
+            background: rgba(82, 120, 255, 0.08);
+            text-align: center;
+        }
+
+        .match-stat span {
+            display: block;
+            margin-bottom: 8px;
+            color: #91a8e0;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .match-stat strong {
+            color: #ffffff;
+            font-family: 'DM Mono', monospace;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+
+        /* Winner section */
+
+        .winner-section {
+            display: none;
+            position: relative;
+            overflow: hidden;
+
+            margin-top: 25px;
+            padding: 30px;
+
+            border: 1px solid rgba(255, 209, 102, 0.65);
+            border-radius: 20px;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(255, 209, 102, 0.15),
+                    transparent 75%
+                ),
+                rgba(48, 38, 20, 0.8);
+
+            text-align: center;
+
+            box-shadow:
+                0 0 25px rgba(255, 209, 102, 0.15);
+        }
+
+        .winner-section.show {
+            display: block;
+            animation: winnerReveal 0.7s ease both;
+        }
+
+        @keyframes winnerReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .winner-crown {
+            color: #ffd166;
+            font-size: 40px;
+            filter: drop-shadow(0 0 12px rgba(255, 209, 102, 0.4));
+        }
+
+        .winner-section h2 {
+            margin: 10px 0;
+            color: #ffd166;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(35px, 5vw, 55px);
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .winner-team-name {
+            margin: 15px 0;
+            color: #ffffff;
+            font-size: clamp(26px, 4vw, 43px);
+            font-weight: 900;
+            overflow-wrap: anywhere;
+        }
+
+        .winner-time {
+            color: #ffd166;
+            font-family: 'DM Mono', monospace;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+
+        /* Leaderboard */
+
+        .audience-leaderboard {
+            margin-top: 30px;
+            padding: 25px;
+
+            border: 1px solid rgba(82, 120, 255, 0.3);
+            border-radius: 20px;
+
+            background: rgba(17, 30, 64, 0.88);
+            backdrop-filter: blur(15px);
+        }
+
+        .audience-leaderboard h2 {
+            margin: 0 0 18px;
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+        }
+
+        .audience-leaderboard .leaderboard {
+            gap: 11px;
+        }
+
+        .audience-leaderboard .leader-row {
+            padding: 17px;
+            border-color: rgba(82, 120, 255, 0.2);
+            background: rgba(82, 120, 255, 0.08);
+        }
+
+        .audience-leaderboard .leader-team {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .audience-leaderboard .leader-time {
+            font-size: 15px;
+        }
+
+        .audience-leaderboard .rank {
+            width: 39px;
+            height: 39px;
+            font-size: 14px;
+        }
+
+
+        /* Footer */
+
+        .audience-footer {
+            margin-top: 28px;
+            color: #778bbf;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+
+        /* Light mode */
+
+        body.light-mode {
+            background: #edf2ff;
+        }
+
+        body.light-mode .arena-background {
+            background:
+                radial-gradient(
+                    ellipse at 15% 20%,
+                    rgba(82, 120, 255, 0.16),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    ellipse at 85% 70%,
+                    rgba(167, 122, 255, 0.12),
+                    transparent 42%
+                ),
+                #edf2ff;
+        }
+
+        body.light-mode .audience-header,
+        body.light-mode .live-match,
+        body.light-mode .audience-leaderboard {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        body.light-mode .audience-brand h1,
+        body.light-mode .audience-title h2,
+        body.light-mode .match-heading h3,
+        body.light-mode .display-team-name,
+        body.light-mode .display-player strong,
+        body.light-mode .match-stat strong,
+        body.light-mode .audience-leaderboard h2,
+        body.light-mode .audience-leaderboard .leader-team {
+            color: #172344;
+        }
+
+        body.light-mode .audience-brand p,
+        body.light-mode .audience-title p,
+        body.light-mode .display-operator,
+        body.light-mode .match-stat span,
+        body.light-mode .display-timer-label {
+            color: #52658f;
+        }
+
+        body.light-mode .display-timer-box {
+            background: rgba(226, 237, 255, 0.9);
+        }
+
+        body.light-mode .display-player,
+        body.light-mode .match-stat,
+        body.light-mode .audience-leaderboard .leader-row {
+            background: rgba(82, 120, 255, 0.06);
+        }
+
+        body.light-mode .audience-leaderboard .leader-time {
+            color: #008eae;
+        }
+
+
+        /* Responsive */
+
+        @media (max-width: 700px) {
+            .audience-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .audience-brand img {
+                width: 68px;
+                height: 68px;
+            }
+
+            .match-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .display-players {
+                grid-template-columns: 1fr;
+            }
+
+            .live-match {
+                padding: 20px;
+            }
+
+            .display-timer {
+                font-size: 48px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ANIMATED BACKGROUND -->
+
+    <div class="arena-background" aria-hidden="true">
+
+        <div class="arena-glow one"></div>
+        <div class="arena-glow two"></div>
+        <div class="arena-glow three"></div>
+
+    </div>
+
+
+
+    <main class="audience-page">
+
+
+        <!-- HEADER -->
+
+        <header class="audience-header">
+
+            <div class="audience-brand">
+
+                <img
+                    src="image.png"
+                    alt="Programming Department Logo"
+                >
+
+                <div>
+
+                    <h1>MINI ROBOCUP</h1>
+
+                    <p>
+                        ROBOTICS LINE TRACING
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="audience-live">
+
+                <span class="live-dot"></span>
+
+                LIVE COMPETITION
+
+            </div>
+
+        </header>
+
+
+
+        <!-- TITLE -->
+
+        <section class="audience-title">
+
+            <div class="eyebrow">
+                PROGRAMMING DEPARTMENT PRESENTS
+            </div>
+
+            <h2>
+                ROBOTICS ARENA
+            </h2>
+
+            <p>
+                MINI ROBOCUP • LINE TRACING COMPETITION
+            </p>
+
+        </section>
+
+
+
+        <!-- CURRENT MATCH -->
+
+        <section class="live-match">
+
+
+            <div class="match-heading">
+
+                <h3>CURRENT MATCH</h3>
+
+                <span
+                    class="match-status"
+                    id="displayRunStatus"
+                >
+                    WAITING
+                </span>
+
+            </div>
+
+
+
+            <!-- TEAM -->
+
+            <h1
+                class="display-team-name"
+                id="displayTeamName"
+            >
+                WAITING FOR TEAM
+            </h1>
+
+
+
+            <!-- PLAYERS -->
+
+            <div class="display-players">
+
+                <div class="display-player">
+
+                    <span>PLAYER 1</span>
+
+                    <strong id="displayPlayer1">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="display-player">
+
+                    <span>PLAYER 2</span>
+
+                    <strong id="displayPlayer2">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OPERATOR -->
+
+            <div class="display-operator">
+
+                CURRENT OPERATOR:
+
+                <strong id="displayOperator">
+                    —
+                </strong>
+
+            </div>
+
+
+
+            <!-- TIMER -->
+
+            <div class="display-timer-box">
+
+                <div class="display-timer-label">
+                    OFFICIAL RUN TIMER
+                </div>
+
+                <div
+                    class="display-timer"
+                    id="displayTimer"
+                >
+                    00:00.00
+                </div>
+
+                <div class="display-run-status">
+                    ATTEMPT
+                    <span id="displayAttempt">—</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- MATCH STATISTICS -->
+
+            <div class="match-stats">
+
+                <div class="match-stat">
+
+                    <span>TIME PENALTY</span>
+
+                    <strong id="displayPenalty">
+                        0.00 SEC
+                    </strong>
+
+                </div>
+
+
+                <div class="match-stat">
+
+                    <span>REGISTERED TEAMS</span>
+
+                    <strong id="displayTeamCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="match-stat">
+
+                    <span>LAST UPDATED</span>
+
+                    <strong
+                        id="displayLastUpdated"
+                        style="font-size: 13px;"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- WINNER ANNOUNCEMENT -->
+
+        <section
+            class="winner-section"
+            id="winnerSection"
+        >
+
+            <div class="winner-crown">
+                ♛
+            </div>
+
+            <h2>
+                CHAMPION
+            </h2>
+
+            <div
+                class="winner-team-name"
+                id="winnerTeamName"
+            >
+                —
+            </div>
+
+            <div class="winner-time">
+
+                FINAL TIME:
+
+                <span id="winnerTime">
+                    —
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- LEADERBOARD -->
+
+        <section class="audience-leaderboard">
+
+            <h2>
+                🏆 COMPETITION LEADERBOARD
+            </h2>
+
+            <div
+                class="leaderboard"
+                id="displayLeaderboard"
+            >
+
+                <div class="empty-state">
+                    Waiting for completed runs.
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="audience-footer">
+
+            PROGRAMMING DEPARTMENT
+            <br>
+            MINI ROBOCUP ROBOTICS LINE TRACING COMPETITION
+
+        </footer>
+
+
+    </main>
+
+
+    <script src="display.js"></script>
+
+</body>
+
+</html>

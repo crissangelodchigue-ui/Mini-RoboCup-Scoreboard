@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini RoboCup | Facilitator Panel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <img
+                src="image.png"
+                alt="Programming Department Logo"
+            >
+
+            <div>
+                <h1>MINI ROBOCUP</h1>
+                <small>Robotics Line Tracing Competition</small>
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <span class="pill" id="connectionStatus">
+                ● CONNECTED
+            </span>
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="themeToggle"
+                aria-label="Toggle light and dark mode"
+            >
+                ☀ LIGHT MODE
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="openDisplayBtn"
+            >
+                ↗ AUDIENCE DISPLAY
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         MAIN PAGE
+    ================================================== -->
+
+    <main class="page">
+
+
+        <!-- INTRODUCTION -->
+
+        <section class="intro">
+
+            <div class="eyebrow">
+                PROGRAMMING DEPARTMENT PRESENTS
+            </div>
+
+            <h2>
+                MINI ROBOCUP
+                <br>
+                <span style="color: var(--cyan);">
+                    SCOREBOARD
+                </span>
+            </h2>
+
+            <p>
+                Facilitator control center for the Robotics
+                Line Tracing Competition. Manage teams,
+                monitor attempts, record penalties, and
+                determine competition rankings.
+            </p>
+
+            <div class="rule-summary">
+
+                <span>3 ATTEMPTS PER TEAM</span>
+                <span>3-SECOND PENALTY</span>
+                <span>FASTEST VALID TIME WINS</span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TEAM REGISTRATION
+        ================================================== -->
+
+        <section class="panel registration-panel">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>01 / TEAM REGISTRATION</h2>
+
+                    <p>
+                        Register teams before or during the competition.
+                    </p>
+                </div>
+
+                <span class="pill" id="teamCount">
+                    0 TEAMS
+                </span>
+
+            </div>
+
+
+            <form id="teamForm">
+
+                <div class="register-grid">
+
+                    <div>
+                        <label for="newTeamName">
+                            TEAM NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newTeamName"
+                            placeholder="Enter team name"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="newPlayer1">
+                            PLAYER 1
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newPlayer1"
+                            placeholder="Enter first player"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="newPlayer2">
+                            PLAYER 2
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newPlayer2"
+                            placeholder="Enter second player"
+                            required
+                        >
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        + REGISTER TEAM
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN CONTROL AREA
+        ================================================== -->
+
+        <div class="main-grid">
+
+
+            <!-- LEFT: MATCH CONTROLS -->
+
+            <section class="panel run-panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>02 / MATCH CONTROL</h2>
+
+                        <p>
+                            Select a team and manage its competition run.
+                        </p>
+                    </div>
+
+                    <span class="pill" id="runStatus">
+                        WAITING
+                    </span>
+
+                </div>
+
+
+
+                <!-- TEAM SELECTOR -->
+
+                <div class="team-picker-label">
+
+                    <label for="teamSelect">
+                        SELECT COMPETING TEAM
+                    </label>
+
+                    <select id="teamSelect">
+
+                        <option value="">
+                            Select a registered team
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ACTIVE TEAM INFORMATION -->
+
+                <div
+                    class="active-team-card"
+                    id="activeTeamDetails"
+                >
+
+                    <div class="eyebrow">
+                        CURRENTLY SELECTED TEAM
+                    </div>
+
+                    <h2>
+                        NO TEAM SELECTED
+                    </h2>
+
+                    <p>
+                        Register a team or select one from
+                        the dropdown above.
+                    </p>
+
+                </div>
+
+
+
+                <!-- ATTEMPT TRACKER -->
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>ATTEMPT TRACKER</h3>
+
+                        <p>
+                            Maximum of three attempts per team.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="attempt-strip">
+
+                    <div>
+                        ATTEMPTS USED
+
+                        <strong id="attemptCount">
+                            0
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        ATTEMPTS LEFT
+
+                        <strong id="attemptsLeft">
+                            3
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        CURRENT ATTEMPT
+
+                        <strong id="currentAttempt">
+                            —
+                        </strong>
+                    </div>
+
+                </div>
+
+
+
+                <!-- TIMER -->
+
+                <div class="timer-card">
+
+                    <div class="timer-label">
+                        OFFICIAL RUN TIMER
+                    </div>
+
+                    <div
+                        class="digital-time"
+                        id="runTimer"
+                    >
+                        00:00.00
+                    </div>
+
+                    <div
+                        class="timer-hint"
+                        id="timerHint"
+                    >
+                        Ready to begin
+                    </div>
+
+                </div>
+
+
+
+                <!-- RUN BUTTONS -->
+
+                <div class="run-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        id="startRunBtn"
+                    >
+                        ▶ START RUN
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="finishRunBtn"
+                        disabled
+                    >
+                        ■ FINISH RUN
+                    </button>
+
+                </div>
+
+
+
+                <!-- PENALTY CONTROLS -->
+
+                <div class="penalty-section">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h3>03 / TIME PENALTIES</h3>
+
+                            <p>
+                                Apply a three-second penalty when required.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="penalty-total">
+                        <span id="penaltyTotal">0.00</span>
+                        SEC
+                    </div>
+
+
+                    <div class="penalty-buttons">
+
+                        <button
+                            type="button"
+                            class="penalty-btn"
+                            data-penalty="3"
+                        >
+                            +3 SEC
+                            <br>
+                            LEFT THE LINE
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="penalty-btn"
+                            data-penalty="3"
+                        >
+                            +3 SEC
+                            <br>
+                            MANUAL REPOSITIONING
+                        </button>
+
+                    </div>
+
+                    <p class="fine-print">
+                        Apply the penalty for each recorded violation.
+                        A declared restart does not add a time penalty.
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESTART CONTROLS -->
+
+                <div class="restart-section">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h3>04 / RESTART AND OPERATOR</h3>
+
+                            <p>
+                                Declare a restart before resetting or
+                                changing the operator.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="restart-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-warning"
+                            id="declaredRestartBtn"
+                        >
+                            ↻ DECLARED RESTART
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="switchOperatorBtn"
+                        >
+                            ⇄ SWITCH OPERATOR
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ATTEMPT HISTORY -->
+
+                <div style="margin-top: 25px;">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h3>05 / ATTEMPT HISTORY</h3>
+
+                            <p>
+                                Recorded attempts for the selected team.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-wrap">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Attempt</th>
+                                    <th>Operator</th>
+                                    <th>Run Time</th>
+                                    <th>Penalty</th>
+                                    <th>Final Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="attemptHistory">
+
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">
+                                        No attempt history available.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- RIGHT: LEADERBOARD AND RULES -->
+
+            <aside class="side-column">
+
+
+                <!-- LEADERBOARD -->
+
+                <section class="panel">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h2>🏆 LEADERBOARD</h2>
+
+                            <p>
+                                Current team rankings.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="leaderboard"
+                        id="leaderboard"
+                    >
+
+                        <div class="empty-state">
+                            No completed runs yet.
+                        </div>
+
+                    </div>
+
+
+                    <p class="fine-print" style="margin-top:15px;">
+                        Select a team from the leaderboard to
+                        review its recorded attempts.
+                    </p>
+
+                </section>
+
+
+
+                <!-- COMPETITION RULES -->
+
+                <section class="panel">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h2>COMPETITION RULES</h2>
+
+                            <p>
+                                Quick reference for the facilitator.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <ol class="rules-list">
+
+                        <li>
+                            Each team has a maximum of three attempts.
+                        </li>
+
+                        <li>
+                            Leaving the track incurs a three-second penalty.
+                        </li>
+
+                        <li>
+                            Manual repositioning incurs a three-second penalty.
+                        </li>
+
+                        <li>
+                            A declared restart consumes one attempt
+                            without adding a time penalty.
+                        </li>
+
+                        <li>
+                            Only one operator may control the robot
+                            during a run.
+                        </li>
+
+                        <li>
+                            The fastest valid adjusted completion time wins.
+                        </li>
+
+                        <li>
+                            Tied completion times require a tiebreaker.
+                        </li>
+
+                    </ol>
+
+                </section>
+
+
+
+                <!-- DATA MANAGEMENT -->
+
+                <section class="panel">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h2>DATA MANAGEMENT</h2>
+
+                            <p>
+                                Save or reset competition records.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-outline full-width"
+                        id="exportBtn"
+                    >
+                        ↓ EXPORT RESULTS (CSV)
+                    </button>
+
+
+                    <div style="height: 12px;"></div>
+
+
+                    <div class="danger-zone">
+
+                        <h3>RESET COMPETITION</h3>
+
+                        <p class="fine-print">
+                            This clears the current competition data.
+                            Use only when necessary.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="btn btn-danger full-width"
+                            id="resetAllBtn"
+                        >
+                            RESET ALL DATA
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer>
+
+        PROGRAMMING DEPARTMENT
+        <br>
+
+        MINI ROBOCUP ROBOTICS LINE TRACING COMPETITION
+
+    </footer>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
