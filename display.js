@@ -1,16 +1,11 @@
 
-/* =====================================================
-   MINI ROBOCUP SCOREBOARD
-   AUDIENCE DISPLAY SYSTEM
-===================================================== */
+/* MINI ROBOCUP SCOREBOARD AUDIENCE DISPLAY SYSTEM */
 
 const DISPLAY_KEY = "miniRoboCupDisplayData";
 const CHANNEL_NAME = "miniRoboCupScoreboard";
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* ELEMENTS */
 
 const displayTeamName = document.getElementById("displayTeamName");
 const displayPlayer1 = document.getElementById("displayPlayer1");
@@ -32,9 +27,7 @@ const winnerTeamName = document.getElementById("winnerTeamName");
 const winnerTime = document.getElementById("winnerTime");
 
 
-/* =====================================================
-   STATE
-===================================================== */
+/* STATE */
 
 let displayData = null;
 let channel = null;
@@ -46,9 +39,7 @@ try {
 }
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* HELPERS */
 
 function formatTime(milliseconds) {
 
@@ -114,9 +105,7 @@ function getLiveElapsedTime() {
 }
 
 
-/* =====================================================
-   THEME
-===================================================== */
+/* THEME */
 
 function applyTheme() {
 
@@ -130,9 +119,7 @@ function applyTheme() {
 }
 
 
-/* =====================================================
-   CURRENT MATCH
-===================================================== */
+/* CURRENT MATCH */
 
 function renderCurrentMatch() {
 
@@ -180,9 +167,7 @@ function renderCurrentMatch() {
 }
 
 
-/* =====================================================
-   LEADERBOARD
-===================================================== */
+/* LEADERBOARD */
 
 function renderLeaderboard() {
 
@@ -286,9 +271,7 @@ function renderLeaderboard() {
 }
 
 
-/* =====================================================
-   TEAM ATTEMPT DETAILS
-===================================================== */
+/* TEAM ATTEMPT DETAILS */
 
 function showTeamAttempts(teamId) {
 
@@ -564,9 +547,7 @@ function showTeamAttempts(teamId) {
 }
 
 
-/* =====================================================
-   WINNER ANNOUNCEMENT
-===================================================== */
+/* WINNER ANNOUNCEMENT */
 
 function renderWinner() {
 
@@ -613,9 +594,7 @@ function renderWinner() {
 }
 
 
-/* =====================================================
-   OTHER MATCH INFORMATION
-===================================================== */
+/* OTHER MATCH INFORMATION */
 
 function renderOtherInformation() {
 
@@ -642,9 +621,7 @@ function renderOtherInformation() {
 }
 
 
-/* =====================================================
-   RENDER ALL
-===================================================== */
+/* RENDER ALL */
 
 function renderAll() {
 
@@ -663,9 +640,7 @@ function renderAll() {
 }
 
 
-/* =====================================================
-   RECEIVE DATA
-===================================================== */
+/* RECEIVE DATA */
 
 function receiveData(newData) {
 
@@ -678,9 +653,7 @@ function receiveData(newData) {
 }
 
 
-/* =====================================================
-   LOAD SAVED DATA
-===================================================== */
+/* LOAD SAVED DATA */
 
 function loadSavedData() {
 
@@ -701,9 +674,7 @@ function loadSavedData() {
 }
 
 
-/* =====================================================
-   CROSS-TAB SYNCHRONIZATION
-===================================================== */
+/* CROSS-TAB SYNCHRONIZATION */
 
 window.addEventListener("storage", function (event) {
 
@@ -731,9 +702,7 @@ if (channel) {
 }
 
 
-/* =====================================================
-   TIMER REFRESH
-===================================================== */
+/* TIMER REFRESH */
 
 setInterval(() => {
 
@@ -745,9 +714,7 @@ setInterval(() => {
 }, 50);
 
 
-/* =====================================================
-   AUDIENCE FULLSCREEN CONTROL
-===================================================== */
+/* AUDIENCE FULLSCREEN CONTROL */
 
 const displayFullscreenToggle = document.getElementById(
     "displayFullscreenToggle"
@@ -798,9 +765,7 @@ if (displayFullscreenToggle) {
 }
 
 
-/* =====================================================
-   INITIALIZATION
-===================================================== */
+/* INITIALIZATION */
 
 loadSavedData();
 
