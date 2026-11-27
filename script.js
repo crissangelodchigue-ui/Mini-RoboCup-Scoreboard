@@ -1,8 +1,5 @@
 
-/* =====================================================
-   MINI ROBOCUP SCOREBOARD
-   FACILITATOR CONTROL SYSTEM
-===================================================== */
+/* MINI ROBOCUP SCOREBOARD FACILITATOR CONTROL SYSTEM */
 
 const STORAGE_KEY = "miniRoboCupScoreboardData";
 const DISPLAY_KEY = "miniRoboCupDisplayData";
@@ -12,9 +9,7 @@ const MAX_ATTEMPTS = 3;
 const PENALTY_SECONDS = 3;
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* ELEMENTS */
 
 const teamForm = document.getElementById("teamForm");
 const newTeamName = document.getElementById("newTeamName");
@@ -54,9 +49,7 @@ const openDisplayBtn = document.getElementById("openDisplayBtn");
 const themeToggle = document.getElementById("themeToggle");
 
 
-/* =====================================================
-   DATA AND STATE
-===================================================== */
+/* DATA AND STATE */
 
 let data = loadData();
 
@@ -74,9 +67,7 @@ try {
 }
 
 
-/* =====================================================
-   DATA STRUCTURE
-===================================================== */
+/* DATA STRUCTURE */
 
 function createEmptyData() {
     return {
@@ -113,9 +104,7 @@ function saveData() {
 }
 
 
-/* =====================================================
-   GENERAL HELPERS
-===================================================== */
+/* GENERAL HELPERS */
 
 function getSelectedTeam() {
     return data.teams.find(team => team.id === selectedTeamId) || null;
@@ -237,9 +226,7 @@ teamForm.addEventListener("submit", function (event) {
 });
 
 
-/* =====================================================
-   TEAM SELECTION
-===================================================== */
+/* TEAM SELECTION */
 
 teamSelect.addEventListener("change", function () {
     if (currentRun) {
@@ -256,9 +243,7 @@ teamSelect.addEventListener("change", function () {
 });
 
 
-/* =====================================================
-   START RUN
-===================================================== */
+/* START RUN */
 
 startRunBtn.addEventListener("click", function () {
     const team = getSelectedTeam();
@@ -294,9 +279,7 @@ startRunBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   FINISH RUN
-===================================================== */
+/* FINISH RUN */
 
 finishRunBtn.addEventListener("click", function () {
     if (!currentRun) {
@@ -341,9 +324,7 @@ finishRunBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   PENALTY BUTTONS
-===================================================== */
+/* PENALTY BUTTONS */
 
 penaltyButtons.forEach(button => {
 
@@ -370,9 +351,7 @@ penaltyButtons.forEach(button => {
 });
 
 
-/* =====================================================
-   DECLARED RESTART
-===================================================== */
+/* DECLARED RESTART */
 
 declaredRestartBtn.addEventListener("click", function () {
 
@@ -441,9 +420,7 @@ declaredRestartBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   OPERATOR SWITCH
-===================================================== */
+/* OPERATOR SWITCH */
 
 switchOperatorBtn.addEventListener("click", function () {
 
@@ -509,9 +486,7 @@ switchOperatorBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   TIMER
-===================================================== */
+/* TIMER */
 
 function startTimer() {
     stopTimer();
@@ -543,9 +518,7 @@ function renderTimer() {
 }
 
 
-/* =====================================================
-   WINNER DETECTION
-===================================================== */
+/* WINNER DETECTION */
 
 function checkWinner() {
 
@@ -606,9 +579,7 @@ function checkWinner() {
 }
 
 
-/* =====================================================
-   LEADERBOARD
-===================================================== */
+/* LEADERBOARD */
 
 function getRankedTeams() {
 
@@ -717,9 +688,7 @@ function renderLeaderboard() {
 }
 
 
-/* =====================================================
-   TEAM SELECTOR
-===================================================== */
+/* TEAM SELECTOR */
 
 function renderTeamSelector() {
 
@@ -745,9 +714,7 @@ function renderTeamSelector() {
 }
 
 
-/* =====================================================
-   ACTIVE TEAM DETAILS
-===================================================== */
+/* ACTIVE TEAM DETAILS */
 
 function renderActiveTeam() {
 
@@ -810,9 +777,7 @@ function renderActiveTeam() {
 }
 
 
-/* =====================================================
-   REMOVE TEAM
-===================================================== */
+/* REMOVE TEAM */
 
 function removeTeam(teamId) {
 
@@ -847,9 +812,7 @@ function removeTeam(teamId) {
 }
 
 
-/* =====================================================
-   ATTEMPT TRACKER
-===================================================== */
+/* ATTEMPT TRACKER */
 
 function renderAttemptTracker() {
 
@@ -977,9 +940,7 @@ function renderControls() {
 }
 
 
-/* =====================================================
-   THEME CONTROL
-===================================================== */
+/* THEME CONTROL */
 
 function applyTheme() {
 
@@ -1102,9 +1063,7 @@ function broadcastDisplay() {
 }
 
 
-/* =====================================================
-   CONNECTION STATUS
-===================================================== */
+/* CONNECTION STATUS */
 
 function updateConnectionStatus() {
 
@@ -1117,9 +1076,7 @@ function updateConnectionStatus() {
 }
 
 
-/* =====================================================
-   OPEN AUDIENCE DISPLAY
-===================================================== */
+/* OPEN AUDIENCE DISPLAY */
 
 openDisplayBtn.addEventListener("click", function () {
 
@@ -1132,9 +1089,7 @@ openDisplayBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   CSV EXPORT
-===================================================== */
+/* CSV EXPORT */
 
 exportBtn.addEventListener("click", function () {
 
@@ -1204,9 +1159,7 @@ exportBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   RESET ALL DATA
-===================================================== */
+/* RESET ALL DATA */
 
 resetAllBtn.addEventListener("click", function () {
 
@@ -1229,9 +1182,7 @@ resetAllBtn.addEventListener("click", function () {
 });
 
 
-/* =====================================================
-   HTML ESCAPING
-===================================================== */
+/* HTML ESCAPING */
 
 function escapeHTML(value) {
 
@@ -1252,9 +1203,7 @@ function escapeHTML(value) {
 }
 
 
-/* =====================================================
-   RENDER ALL
-===================================================== */
+/* RENDER ALL */
 
 function renderAll() {
 
@@ -1292,9 +1241,7 @@ function saveAndRender() {
 }
 
 
-/* =====================================================
-   INITIALIZATION
-===================================================== */
+/* INITIALIZATION */
 
 function initialize() {
 
@@ -1313,9 +1260,7 @@ function initialize() {
 initialize();
 
 
-/* =====================================================
-   LIVE TIMER AND DISPLAY SYNCHRONIZATION
-===================================================== */
+/* LIVE TIMER AND DISPLAY SYNCHRONIZATION */
 
 setInterval(() => {
 
@@ -1327,9 +1272,7 @@ setInterval(() => {
 }, 100);
 
 
-/* =====================================================
-   LISTEN FOR OTHER TAB UPDATES
-===================================================== */
+/* LISTEN FOR OTHER TAB UPDATES */
 
 if (channel) {
 
