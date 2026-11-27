@@ -1,6 +1,6 @@
 
 
-/* -------------------- THEME VARIABLES -------------------- */
+/* THEME VARIABLES */
 
 :root {
     color-scheme: dark;
@@ -387,7 +387,7 @@ textarea:focus {
 }
 
 
-/* -------------------- BUTTONS -------------------- */
+/* BUTTONS */
 
 .btn {
     display: inline-flex;
@@ -477,7 +477,7 @@ button:disabled {
 }
 
 
-/* -------------------- MAIN GRID -------------------- */
+/* MAIN GRID */
 
 .main-grid {
     display: grid;
@@ -497,7 +497,7 @@ button:disabled {
 }
 
 
-/* -------------------- ACTIVE TEAM CARD -------------------- */
+/* ACTIVE TEAM CARD */
 
 .team-picker-label {
     margin-top: 20px;
@@ -568,7 +568,7 @@ button:disabled {
 }
 
 
-/* -------------------- ATTEMPT TRACKER -------------------- */
+/* ATTEMPT TRACKER */
 
 .attempt-strip {
     display: grid;
@@ -597,7 +597,7 @@ button:disabled {
 }
 
 
-/* -------------------- TIMER -------------------- */
+/* TIMER */
 
 .timer-card {
     padding: 25px 15px;
@@ -639,7 +639,7 @@ button:disabled {
 }
 
 
-/* -------------------- RUN ACTIONS -------------------- */
+/* RUN ACTIONS */
 
 .run-actions {
     display: grid;
@@ -654,7 +654,7 @@ button:disabled {
 }
 
 
-/* -------------------- PENALTIES -------------------- */
+/* PENALTIES */
 
 .penalty-section,
 .restart-section {
@@ -710,7 +710,7 @@ button:disabled {
 }
 
 
-/* -------------------- RESTART CONTROLS -------------------- */
+/* RESTART CONTROLS */
 
 .restart-actions {
     display: grid;
@@ -767,7 +767,7 @@ tbody tr:hover {
 }
 
 
-/* -------------------- LEADERBOARD -------------------- */
+/* LEADERBOARD */
 
 .leaderboard {
     display: flex;
@@ -837,7 +837,7 @@ tbody tr:hover {
 }
 
 
-/* -------------------- RULES -------------------- */
+/* RULES */
 
 .rules-list {
     display: flex;
@@ -855,7 +855,7 @@ tbody tr:hover {
 }
 
 
-/* -------------------- DATA MANAGEMENT -------------------- */
+/* DATA MANAGEMENT */
 
 .danger-zone {
     padding: 16px;
@@ -876,7 +876,7 @@ tbody tr:hover {
 }
 
 
-/* -------------------- FOOTER -------------------- */
+/* FOOTER */
 
 footer {
     padding: 25px 15px;
@@ -890,7 +890,7 @@ footer {
 }
 
 
-/* -------------------- SCROLLBAR -------------------- */
+/* SCROLLBAR */
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -911,7 +911,7 @@ footer {
 }
 
 
-/* -------------------- RESPONSIVE -------------------- */
+/* RESPONSIVE */
 
 @media (max-width: 1000px) {
     .main-grid {
@@ -979,7 +979,7 @@ footer {
 }
 
 
-/* -------------------- REDUCED MOTION -------------------- */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
     *,
